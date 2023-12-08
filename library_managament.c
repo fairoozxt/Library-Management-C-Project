@@ -49,6 +49,89 @@ int main()
 
 void show_welcome()
 {
+    /* to print first three row of the pattern */
+    for(int i = 0; i < 3; i++)
+    {
+        printf("\n|");
+
+        for(int j = 0; j < 94; j++)
+        {
+            printf("*|");
+        }
+
+    }
+
+    printf("\n"); /* creates new line for the next rows */
+
+    /* to print the upper three row of the text */
+    for(int i = 0; i < 6; i++)
+    {
+        printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                                                                 |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+
+        /* to print the middle row with the text */
+        if(i == 2)
+        {
+            printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                             WELCOME TO EWU LIBRARY                              |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+        }
+
+    }
+
+    /* to print last three row of the pattern */
+    for(int i = 0; i < 3; i++)
+    {
+        printf("|");
+
+        for(int j = 0; j < 94; j++)
+        {
+            printf("*|");
+        }
+
+        printf("\n"); /* creates new line for the next rows */
+    }
+
+    printf("\n\n\n");
+
+
+    for (int i = 0; i < 1; i++)
+    {
+
+        for (int j = 0; j < 61; j++)
+        {
+            printf("*_");
+            printf(" ");
+        }
+    }
+
+    printf("*");
+
+    for (int i = 0; i < 1; i++)
+    {
+
+        for (int j = 0; j < 61; j++)
+        {
+
+            printf(" ");
+        }
+    }
+
+
+    printf("*\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\tAdd A New Book\t\t\t\t\t\t\t\t\t\t\t\n");
+
+
+
+
+    for (int i = 0; i < 1; i++)
+    {
+        for (int j = 0; j < 61; j++)
+        {
+            printf(" ");
+            printf("*_");
+        }
+    }
+
+    printf("*");
+
 }
 
 void show_exit_message()

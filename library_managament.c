@@ -1,22 +1,6 @@
 #include <stdio.h>
-
-void show_welcome();
-
-void show_exit_message();
-
-int authorization_screen();
-
-void show_menu();
-
-void enter_choice();
-
-void add_book();
-
-void show_all_books();
-
-void search_books_by_name();
-
-void search_books_by_author();
+#include<string.h>
+#include<conio.h>
 
 struct Book          //define a structure for a book
 {
@@ -40,9 +24,36 @@ struct Library
     int bookCount;
 };
 
+//function prototype
+void show_welcome();
+void show_exit_message();
+int authorization_screen();
+void show_menu();
+void enter_choice();
+void add_book();
+void show_all_books();
+void search_books_by_name();
+void search_books_by_author();
+
+
+
+
 int main()
 {
-    printf("hello world");
+    struct Library library  = {0};   // initialize book count to 0
+
+    if(authorization_screen() == 1)
+    {
+
+        enter_choice();
+
+    }
+    else
+    {
+
+        printf("Authorization failed. Exiting...\n");
+    }
+
 
     return 0;
 }
@@ -140,6 +151,34 @@ void show_exit_message()
 
 int authorization_screen()
 {
+    char username[20], password[20];
+    char ch;
+    int i = 0;
+
+    printf("\nPlease enter your username: ");
+    scanf("%s", username);
+
+    printf("\nPlease enter your password: ");
+    do
+    {
+        ch = getch();
+        password[i++] = ch;
+        printf("*"); // Display an asterisk for each entered character
+    }
+    while (ch != 13);   // Stop at the Enter key
+
+    password[i - 1] = '\0'; // Replace the last character (Enter key) with null terminator
+
+    if (strcmp(username, "admin") == 0 && strcmp(password, "password123") == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        printf("\nInvalid username or password. Please try again.\n");
+        return 0;
+    }
+
 }
 
 void show_menu()
@@ -241,8 +280,48 @@ void show_all_books()
 {
 }
 
-void search_books_by_name()
+void search_books_by_name(struct Library *library)
 {
+
+    char searchTitle[50];
+
+    printf("Please Enter The Book's Name; ");
+
+    scanf("%[^\n]s", &searchTitle);
+
+    int found = 0;
+
+    for(int i = 0; i < (*library).bookCount; i++)
+    {
+
+        if(strcmp((*library).books[i].Title, searchTitle) == 0)
+        {
+
+            printf("BOOK FOUND\n");
+
+            printf("Book Number: %d\n", (*library).books[i].bookNumber);
+
+            printf("Book Name: %s\n", (*library).books[i].Title);
+
+            printf("Book Author Name: %s\n", (*library).books[i].Author);
+
+            printf("Book Price: %f\n", (*library).books[i].Price);
+
+            printf("Book Issue Date: %s\n", (*library).books[i].issue_Date);
+
+            found = 1;
+
+            break;
+
+        }
+    }
+
+    if(!found)
+    {
+
+        printf("\n|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                Sorry ! NO BOOK FOUND                             |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n\n");
+
+    }
 }
 
 void search_books_by_author()

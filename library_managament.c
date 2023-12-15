@@ -17,8 +17,6 @@ struct Book          /* define a structure for a book */
     float Price;
 
     char issue_Date[11];
-
-    int bookNumber;
 };
 
 struct Library
@@ -258,8 +256,6 @@ void show_menu()
 
     printf("\n\n");
 
-
-    return choice;
 }
 
 void enter_choice(struct Library *library)
@@ -464,7 +460,6 @@ void search_books_by_name(struct Library *library)
             found = 1;
 
             break;
-
         }
     }
 
@@ -582,3 +577,4 @@ void delete_last_book(struct Library *library)
         printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\tYour last book is successfully deleted\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
     }
 }
+

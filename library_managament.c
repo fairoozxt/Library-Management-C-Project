@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> /* to import standard input and output */
 
 #include <string.h>  /* to use string functions */
 
@@ -16,7 +16,7 @@ struct Book          /* define a structure for a book */
 
     float Price;
 
-    char issue_Date[11];
+    char issue_Date[9];
 };
 
 struct Library
@@ -47,6 +47,8 @@ void search_books_by_name();
 void search_books_by_author();
 
 void delete_last_book(struct Library *library);
+
+void any_book_delete(struct Library *library);
 
 
 int main()
@@ -303,6 +305,12 @@ void enter_choice(struct Library *library)
 
         case '6':
 
+            any_book_delete(&library);
+
+            break;
+
+        case '7':
+
             show_exit_message();
 
             break;
@@ -314,7 +322,7 @@ void enter_choice(struct Library *library)
             break;
         }
     }
-    while(choice != '6');
+    while(choice != '7');
 }
 
 void add_book(struct Library *library)
@@ -578,3 +586,37 @@ void delete_last_book(struct Library *library)
     }
 }
 
+void any_book_delete(struct Library *library)
+{
+    char deleteBook[50];
+
+    printf("Please Enter the Book Name to Delete: ");
+
+    scanf(" %[^\n]s", &deleteBook);
+
+    int found = 0;
+
+    for(int i = 0; i < (*library).bookCount; i++)
+    {
+        if(strcmp((*library).books[i].Title, deleteBook) == 0)
+        {
+            for(int j = i; j < (*library).bookCount - 1; j++)
+            {
+                (*library).books[j] = (*library).books[j + 1];
+            }
+
+            ((*library).bookCount)--;
+
+            found = 1;
+
+            printf("Book Deleted Successfully!");
+
+            printf("\n\nTotal Available Books: %d", (*library).bookCount);
+        }
+    }
+
+    if(!found)
+    {
+        printf("Book %s was Not Not Found.\n", deleteBook);
+    }
+}

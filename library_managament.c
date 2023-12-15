@@ -1,12 +1,14 @@
 #include <stdio.h>
 
-#include <string.h>
+#include <string.h>  /* to use string functions */
 
-#include <conio.h>
+#include <conio.h>   /* to use getch function */
 
-#include <unistd.h> /* for providing sleep function */
+#include <unistd.h>  /* for providing sleep function */
 
-struct Book /* define a structure for a book */
+#include <stdlib.h>  /* to clear selective console */
+
+struct Book          /* define a structure for a book */
 {
     char Title[100];
 
@@ -51,11 +53,18 @@ void delete_last_book(struct Library *library);
 
 int main()
 {
-    struct Library library  = {0};   // initialize book count to 0
+    struct Library library  = {0};   // initialize books and book count to 0
+
+    show_welcome();
 
     if(authorization_screen() == 1)
     {
         enter_choice(&library);
+    }
+
+    else
+    {
+        authorization_screen();
     }
 
     return 0;
@@ -63,152 +72,111 @@ int main()
 
 void show_welcome()
 {
-    /* to print first three row of the pattern */
-    for(int i = 0; i < 3; i++)
-    {
-        printf("\n|");
+    //sleep(1);
 
-        for(int j = 0; j < 94; j++)
+    for(int i = 0; i < 3; i++)      /* to print first two rows of the pattern */
+    {
+        printf("\n\t\t\t  |");
+
+        for(int j = 0; j < 55; j++)
         {
             printf("*|");
         }
+
     }
 
-    printf("\n"); /* creates new line for the next rows */
+    printf("\n");
 
-    /* to print the upper three row of the text */
-    for(int i = 0; i < 6; i++)
+    for(int i = 0; i < 6; i++) /* to print Welcome messsage inside patterns */
     {
-        printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                                                                 |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+        sleep(1);
 
-        /* to print the middle row with the text */
+            printf("\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|                                                           |*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+
         if(i == 2)
         {
-            printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                             WELCOME TO EWU LIBRARY                              |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+            printf("\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|                WELCOME TO EWU LIBRARY                     |*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
         }
-
     }
 
-    /* to print last three row of the pattern */
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 3; i++)     /* to print last three rows of the pattern */
     {
-        printf("|");
+        printf("\t\t\t  |");
 
-        for(int j = 0; j < 94; j++)
+        for(int j = 0; j < 55; j++)
         {
             printf("*|");
         }
 
-        printf("\n"); /* creates new line for the next rows */
+        printf("\n");   /* creates new line for every rows */
     }
 
     printf("\n\n\n");
-
-
-    for (int i = 0; i < 1; i++)
-    {
-
-        for (int j = 0; j < 61; j++)
-        {
-            printf("*_");
-
-            printf(" ");
-        }
-    }
-
-    printf("*");
-
-    for (int i = 0; i < 1; i++)
-    {
-
-        for (int j = 0; j < 61; j++)
-        {
-            printf(" ");
-        }
-    }
-
-    printf("*\n");
-
-    printf("\t\t\t\t\t\t\t\t\t\t\tAdd A New Book\t\t\t\t\t\t\t\t\t\t\t\n");
-
-    for (int i = 0; i < 1; i++)
-    {
-        for (int j = 0; j < 61; j++)
-        {
-            printf(" ");
-
-            printf("*_");
-        }
-    }
-
-    printf("*");
 }
 
 void show_exit_message()
 {
-    printf("\n");
+    system("cls");
 
-    printf("\n");
+    printf("\n\n");
 
-    for(int i = 0; i < 2; i++) /* to print first two rows of the pattern */
+    for(int i = 0; i < 2; i++)      /* to print first two rows of the pattern */
     {
-        printf("\n\t\t\t\t\t\t|"); /* help patterns to adjust in the middle of the console */
+        printf("\n\t\t\t  |");  /* help patterns to adjust in the middle of the console */
 
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 16; j++)
         {
             printf("*|");
         }
 
         printf("     |");
 
-        for(int j = 20; j < 35; j++)
+        for(int j = 20; j < 36; j++)
         {
             printf("*|");
         }
 
         printf("     |");
 
-        for(int j = 40; j < 55; j++)
+        for(int j = 40; j < 56; j++)
         {
             printf("*|");
         }
     }
 
-    printf("\n");
-
-    printf("\n");
+    printf("\n\n");
 
     for(int i = 0; i < 6; i++) /* to print middle patterns */
     {
         sleep(1);
 
-        printf("\t\t\t\t\t\t|*|*|*|*|*|*|*|*|*|*|                                                             |*|*|*|*|*|*|*|*|*|*|\n");
+        printf("\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|                                                           |*|*|*|*|*|*|*|*|*|*|*|*|\n");
 
         if(i == 2)
         {
-            printf("\t\t\t\t\t\t|*|*|*|*|*|*|*|*|*|*|                Thanks For Using EWU Library                 |*|*|*|*|*|*|*|*|*|*|\n");
+            printf("\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|              Thanks For Using EWU Library                 |*|*|*|*|*|*|*|*|*|*|*|*|\n");
         }
     }
 
     for(int i = 0; i < 2; i++) /* to print last two rows of the pattern */
     {
-        printf("\n\t\t\t\t\t\t|");
+        printf("\n\t\t\t  |");
 
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 16; j++)
         {
             printf("*|");
         }
 
         printf("     |");
 
-        for(int j = 20; j < 35; j++)
+        for(int j = 20; j < 36; j++)
         {
             printf("*|");
         }
 
         printf("     |");
 
-        for(int j = 40; j < 55; j++)
+        for(int j = 40; j < 56; j++)
         {
             printf("*|");
         }
@@ -219,35 +187,51 @@ void show_exit_message()
 int authorization_screen()
 {
     char username[20], password[20];
-
     char ch;
-
     int i = 0;
 
-    printf("\nPlease enter your username: ");
+    printf("\n\n\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+
+    printf("*\n\n");
+
+    printf("\t\t\t\t Please enter your username: ");
 
     scanf("%s", username);
 
-    printf("\nPlease enter your password: ");
+    printf("\n\t\t\t\t Please enter your password: ");
     do
     {
         ch = getch();
-
         password[i++] = ch;
+        printf("*");          // Display an asterisk for each entered character
 
-        printf("*"); // Display an asterisk for each entered character
     }
-    while (ch != 13);   // Stop at the Enter key
+    while (ch != 13);         // Stop at the Enter key
 
-    password[i - 1] = '\0'; // Replace the last character (Enter key) with null terminator
+    password[i - 1] = '\0';   // Replace the last character (Enter key) with null terminator
 
-    if (strcmp(username, "Admin") == 0 && strcmp(password, "password123") == 0)
+    if (strcmp(username, "Admin") == 0 && strcmp(password, "password123") == 0)   /* comparing user input with stored username and password */
     {
+        printf("\n\n\t\t\t  ");
+
+        for (int j = 0; j < 37; j++)
+        {
+            printf("*_ ");
+        }
+
+        printf("*");
+
         return 1;
     }
     else
     {
-        printf("\n\nInvalid username or password! \n\tPlease try again.\n");
+
+        printf("\n\n\n\t\t\t\t\t\t\t    Incorrect username or password. Please try again  \n");
 
         return 0;
     }
@@ -255,20 +239,30 @@ int authorization_screen()
 
 void show_menu()
 {
-    printf("\n\n1 . Add a Book ");
+    char choice;
 
-    printf("\n2 . Search Book by Name ");
+    printf("\n\n\n\t\t\t  ");
 
-    printf("\n3 . Search Book by Author ");
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+    printf("*\n");
 
-    printf("\n4 . Show All Book's Information ");
+    printf("\n\n\n\t\t\t\t1 . Add a Book ");
+    printf("\n\t\t\t\t2 . Search Book By Name ");
+    printf("\n\t\t\t\t3 . Search Book By Author ");
+    printf("\n\t\t\t\t4 . Show All Book Information ");
+    printf("\n\t\t\t\t5 . Delete a Book ");
+    printf("\n\t\t\t\t6 . Exit ");
 
-    printf("\n5 . Delete Last Book ");
+    printf("\n\n");
 
-    printf("\n6 . Exit ");
+
+    return choice;
 }
 
-void enter_choice(struct Library *library) /* char parameter type will take any key character from user and will show the result accordingly the code */
+void enter_choice(struct Library *library)
 {
     char choice;
 
@@ -276,11 +270,11 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
     {
         show_menu();
 
-        printf("\n\nEnter your choice (1 to 6): ");
+        printf("\n\n\t\t\t\tEnter your choice (1 to 6): ");
 
-        scanf(" %c", &choice); /* Fix the input stream by adding a space before the format specifier */
+        scanf(" %c", &choice);   /* Fix the input stream by adding a space before the format specifier */
 
-        switch (choice) /* multiple selection statement of 'Switch' applied */
+        switch (choice)   /* multiple selection statement of 'Switch' applied */
         {
         case '1':
 
@@ -317,9 +311,9 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
 
             break;
 
-        default: /* this key word will apply when the user will not input choice between 1 to 6 */
+        default:          /* this key word will apply when the user will not input choice between 1 to 6 */
 
-            printf("\nSorry, you have entered a wrong choice!\n\n\tPlease Try Again.");
+            printf("\n\t\t\t\t\t\t\t  Sorry, you have entered a wrong choice!\n\n\t\t\t\t\t\t\t  Please Try Again.");
 
             break;
         }
@@ -329,96 +323,86 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
 
 void add_book(struct Library *library)
 {
-    for (int i = 0; i < 1; i++)
+
+    printf("\n\n\n\n\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
     {
-
-        for (int j = 0; j < 61; j++)
-        {
-            printf("*_");
-
-            printf(" ");
-        }
+        printf("*_ ");
     }
-
-    printf("*");
-
-    for (int i = 0; i < 1; i++)
-    {
-
-        for (int j = 0; j < 61; j++)
-        {
-
-            printf(" ");
-        }
-    }
-
 
     printf("*\n");
-    printf("                                                                                     Add New Book                                                                                                                \n");
 
-    for (int i = 0; i < 1; i++)
+    printf("\n\n\t\t\t\t\t\t\t\t\t    Add A New Book \n\n\n");
+
+    printf("\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
     {
-        for (int j = 0; j < 61; j++)
-        {
-            printf(" ");
-            printf("*_");
-        }
+        printf("*_ ");
     }
 
     printf("*");
 
-    if((*library).bookCount < 100)
+    printf("\n\n\n");
+
+    if((*library).bookCount < 100)    // this indicates that the library can store 100 books until book count limit is reached
     {
         struct Book newBook;
 
         printf("\n\n");
 
-        printf("Please Enter Book Name: ");
+        printf("\n\t\t\t\tPlease Enter Book Name: ");
 
         scanf(" %[^\n]s", newBook.Title);
 
-        printf("Please Enter Book Author Name: ");
+        printf("\n\t\t\t\tPlease Enter Book Author Name: ");
 
         scanf(" %[^\n]s", newBook.Author);
 
-        printf("Please Enter Book Price: ");
+        printf("\n\t\t\t\tPlease Enter Book Price: ");
 
         scanf("%f", &newBook.Price);
 
-        printf("Please Enter Book Issue Date(DD/MM/YY): ");
+        printf("\n\t\t\t\tPlease Enter Book Issue Date(DD/MM/YY): ");
 
         scanf(" %[^\n]s", newBook.issue_Date);
 
-        (*library).books[(*library).bookCount++]= newBook;  //add a new book to library//
+        (*library).books[(*library).bookCount++] = newBook; // add a new book to library//
 
-        printf("\n\tBook Added Successfully!");
+        printf("\n\n\n\n");
+
+        printf("\n\n\t\t\t\t\t\t\t\t\t~Book added successfully!~  \n");
+
     }
     else
     {
-        printf("\nLibrary is Full.");
+
+        printf("\n\n\t\t\t\t\t\t\t\t\t\t  ~Library is Full~  ");    // this message will be shown on the screen if the limit of 100 books is filled
+
     }
 }
 
 void show_all_books(struct Library *library)
 {
-    for (int i = 0; i < (*library).bookCount; i++) /* checking inputs using a loop */
+    for (int i = 0; i < (*library).bookCount; i++)   /* checking inputs using a loop */
     {
-        printf("\n");
+        printf("\n\n");
 
-        printf("Book Number     : %d\n", (*library).books[i + 1].bookNumber);
+        printf("\n\t\t\t\tBook Number      : %d\n", i+1);
 
-        printf("Book Name       : %s\n", (*library).books[i].Title);
+        printf("\n\t\t\t\tBook Name        : %s\n", (*library).books[i].Title);
 
-        printf("Book Author Name: %s\n", (*library).books[i].Author);
+        printf("\n\t\t\t\tBook Author Name : %s\n", (*library).books[i].Author);
 
-        printf("Book Price      : %.2f\n", (*library).books[i].Price);
+        printf("\n\t\t\t\tBook Price       : %.2f\n", (*library).books[i].Price);
 
-        printf("Book Issue Date : %s\n", (*library).books[i].issue_Date);
+        printf("\n\t\t\t\tBook Issue Date  : %s\n", (*library).books[i].issue_Date);
     }
 
-    if((*library).bookCount == 0)
+    if((*library).bookCount == 0)     /* checking if book count is zero */
     {
-        printf("Sorry There's No Book In The Inventory");
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\tSorry There's No Book In The Inventory\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n");
     }
 }
 
@@ -426,27 +410,56 @@ void search_books_by_name(struct Library *library)
 {
     char searchTitle[50];
 
-    printf("\nPlease Enter The Book's Name: ");
+    printf("\n\n\n\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+    printf("*\n\n");
+
+    printf("\n\t\t\t\t\t\t\t\t\t   Search Book By Title \n\n\n");
+
+    printf("\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+    printf("*\n\n");
+
+
+    printf("\n\t\t\t\tPlease Enter The Book's Name: ");
 
     scanf(" %[^\n]s", &searchTitle);
 
+    printf("\n\n");
+
     int found = 0;
 
-    for(int i = 0; i < (*library).bookCount; i++)
+    for(int i = 0; i < (*library).bookCount; i++)   /* for loop to find book information until the limit is reached */
     {
-        if(strcmp((*library).books[i].Title, searchTitle) == 0)
+        if(strcmp((*library).books[i].Title, searchTitle) == 0)    /* comparing user input with stored book information */
         {
-            printf("\n\tBOOK FOUND\n\n");
+            printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\t    BOOK FOUND   \t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
 
-            printf("Book Number     : %d\n", (*library).books[i].bookNumber);
+            printf("\t\t\t  ");
 
-            printf("Book Name       : %s\n", (*library).books[i].Title);
+            for (int j = 0; j < 37; j++)
+            {
+                printf("*_ ");
+            }
+            printf("*\n\n");
 
-            printf("Book Author Name: %s\n", (*library).books[i].Author);
+            printf("\n\t\t\t\tBook Number      : %d\n", i+1);
 
-            printf("Book Price      : %.2f\n", (*library).books[i].Price);
+            printf("\n\t\t\t\tBook Name        : %s\n", (*library).books[i].Title);
 
-            printf("Book Issue Date : %s\n", (*library).books[i].issue_Date);
+            printf("\n\t\t\t\tBook Author Name : %s\n", (*library).books[i].Author);
+
+            printf("\n\t\t\t\tBook Price       : %.2f\n", (*library).books[i].Price);
+
+            printf("\n\t\t\t\tBook Issue Date  : %s\n", (*library).books[i].issue_Date);
 
             found = 1;
 
@@ -458,25 +471,114 @@ void search_books_by_name(struct Library *library)
     if(!found)
     {
 
-        printf("\n|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                Sorry ! NO BOOK FOUND                             |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n\n");
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\tSorry ! NO BOOK FOUND \t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
+
+        printf("\t\t\t  ");
+
+        for (int j = 0; j < 37; j++)
+        {
+            printf("*_ ");
+        }
+        printf("*\n\n");
 
     }
 }
 
-void search_books_by_author()
+void search_books_by_author(struct Library *library)
 {
+    char searchAuthor[100];
+
+    printf("\n\n\n\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+    printf("*\n\n");
+
+    printf("\n\t\t\t\t\t\t\t\t\t   Search Book By Author \n\n\n");
+
+    printf("\t\t\t  ");
+
+    for (int j = 0; j < 37; j++)
+    {
+        printf("*_ ");
+    }
+    printf("*\n\n");
+
+    printf("\n\t\t\t\tPlease Enter The Author's Name: ");
+
+    scanf(" %[^\n]s", &searchAuthor);
+
+    int found = 0;
+
+    for (int i = 0; i < (*library).bookCount; i++)     /* checking inputs using a loop */
+    {
+
+        if (strcmp((*library).books[i].Author, searchAuthor) == 0)     /* comparing user's author name input with the stored inputs */
+        {
+
+            printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\t   BOOK FOUND   \t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
+
+            printf("\t\t\t  ");
+
+            for (int j = 0; j < 37; j++)
+            {
+                printf("*_ ");
+            }
+            printf("*\n\n");
+
+            printf("\n\t\t\t\tBook Number: %d\n", i+1);
+
+            printf("\n\t\t\t\tBook Name: %s\n", (*library).books[i].Title);
+
+            printf("\n\t\t\t\tBook Author Name: %s\n", (*library).books[i].Author);
+
+            printf("\n\t\t\t\tBook Price: %f\n", (*library).books[i].Price);
+
+            printf("\n\t\t\t\tBook Issue Date: %s\n", (*library).books[i].issue_Date);
+
+            printf("\t\t\t  ");
+
+            for (int j = 0; j < 37; j++)
+            {
+                printf("*_ ");
+            }
+            printf("*\n\n");
+
+            found = 1;
+
+            break;
+        }
+    }
+
+    if (!found)   /* !found = not found */
+    {
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\tSorry ! NO BOOK FOUND \t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
+
+        printf("\t\t\t  ");
+
+        for (int j = 0; j < 37; j++)
+        {
+            printf("*_ ");
+        }
+        printf("*\n\n");
+
+    }
+
 }
 
 void delete_last_book(struct Library *library)
 {
-    if((*library).bookCount == 0)
+    if((*library).bookCount == 0)    /* if book count is zero then the following message will be shown */
     {
-        printf("\nNo book is available to delete!");
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\tNo book is available to delete\t\t |*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
+
     }
     else
     {
-        (*library).bookCount--;
+        (*library).bookCount--;      /* if book is found that this statement decrements the last book and shows the following message */
 
-        printf("\nYour last book is successfully deleted.");
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\tYour last book is successfully deleted\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
     }
 }

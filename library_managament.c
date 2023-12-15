@@ -6,6 +6,8 @@
 
 #include <unistd.h> /* for providing sleep function */
 
+#include <stdlib.h>
+
 struct Book /* define a structure for a book */
 {
     char Title[100];
@@ -15,8 +17,6 @@ struct Book /* define a structure for a book */
     float Price;
 
     char issue_Date[11];
-
-    int bookNumber;
 };
 
 struct Library
@@ -66,7 +66,7 @@ void show_welcome()
     /* to print first three row of the pattern */
     for(int i = 0; i < 3; i++)
     {
-        printf("\n|");
+        printf("\n\t|");
 
         for(int j = 0; j < 94; j++)
         {
@@ -79,12 +79,12 @@ void show_welcome()
     /* to print the upper three row of the text */
     for(int i = 0; i < 6; i++)
     {
-        printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                                                                 |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+        printf("\t|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                                                                 |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
 
         /* to print the middle row with the text */
         if(i == 2)
         {
-            printf("|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                             WELCOME TO EWU LIBRARY                              |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
+            printf("\t|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                             WELCOME TO EWU LIBRARY                              |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n");
         }
 
     }
@@ -92,7 +92,7 @@ void show_welcome()
     /* to print last three row of the pattern */
     for(int i = 0; i < 3; i++)
     {
-        printf("|");
+        printf("\t|");
 
         for(int j = 0; j < 94; j++)
         {
@@ -280,6 +280,8 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
 
         scanf(" %c", &choice); /* Fix the input stream by adding a space before the format specifier */
 
+        system("cls");
+
         switch (choice) /* multiple selection statement of 'Switch' applied */
         {
         case '1':
@@ -405,15 +407,15 @@ void show_all_books(struct Library *library)
     {
         printf("\n");
 
-        printf("Book Number     : %d\n", (*library).books[i + 1].bookNumber);
+        printf("Book Number      : %d\n", i + 1);
 
-        printf("Book Name       : %s\n", (*library).books[i].Title);
+        printf("Book Name        : %s\n", (*library).books[i].Title);
 
-        printf("Book Author Name: %s\n", (*library).books[i].Author);
+        printf("Book Author Name : %s\n", (*library).books[i].Author);
 
-        printf("Book Price      : %.2f\n", (*library).books[i].Price);
+        printf("Book Price       : %.2f\n", (*library).books[i].Price);
 
-        printf("Book Issue Date : %s\n", (*library).books[i].issue_Date);
+        printf("Book Issue Date  : %s\n", (*library).books[i].issue_Date);
     }
 
     if((*library).bookCount == 0)
@@ -438,7 +440,7 @@ void search_books_by_name(struct Library *library)
         {
             printf("\n\tBOOK FOUND\n\n");
 
-            printf("Book Number     : %d\n", (*library).books[i].bookNumber);
+            printf("Book Number     : %d\n", i + 1);
 
             printf("Book Name       : %s\n", (*library).books[i].Title);
 
@@ -451,13 +453,11 @@ void search_books_by_name(struct Library *library)
             found = 1;
 
             break;
-
         }
     }
 
     if(!found)
     {
-
         printf("\n|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|                                Sorry ! NO BOOK FOUND                             |*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|*|\n\n");
 
     }
@@ -478,5 +478,8 @@ void delete_last_book(struct Library *library)
         (*library).bookCount--;
 
         printf("\nYour last book is successfully deleted.");
+
+        printf("\n\nTotal Available Books: %d", (*library).bookCount);
     }
 }
+

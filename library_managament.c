@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> /* to import standard input and output */
 
 #include <string.h>
 
@@ -16,7 +16,7 @@ struct Book /* define a structure for a book */
 
     float Price;
 
-    char issue_Date[11];
+    char issue_Date[9];
 };
 
 struct Library
@@ -47,6 +47,8 @@ void search_books_by_name();
 void search_books_by_author();
 
 void delete_last_book(struct Library *library);
+
+void any_book_delete(struct Library *library);
 
 
 int main()
@@ -255,17 +257,19 @@ int authorization_screen()
 
 void show_menu()
 {
-    printf("\n\n1 . Add a Book ");
+    printf("\n\n1 . Add a Book");
 
-    printf("\n2 . Search Book by Name ");
+    printf("\n2 . Search Book by Name");
 
-    printf("\n3 . Search Book by Author ");
+    printf("\n3 . Search Book by Author");
 
-    printf("\n4 . Show All Book's Information ");
+    printf("\n4 . Show All Book's Information");
 
-    printf("\n5 . Delete Last Book ");
+    printf("\n5 . Delete Last Book");
 
-    printf("\n6 . Exit ");
+    printf("\n6 . Any Book Delete");
+
+    printf("\n7 . Exit");
 }
 
 void enter_choice(struct Library *library) /* char parameter type will take any key character from user and will show the result accordingly the code */
@@ -315,6 +319,12 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
 
         case '6':
 
+            any_book_delete(&library);
+
+            break;
+
+        case '7':
+
             show_exit_message();
 
             break;
@@ -326,7 +336,7 @@ void enter_choice(struct Library *library) /* char parameter type will take any 
             break;
         }
     }
-    while(choice != '6');
+    while(choice != '7');
 }
 
 void add_book(struct Library *library)
@@ -391,7 +401,7 @@ void add_book(struct Library *library)
 
         scanf(" %[^\n]s", newBook.issue_Date);
 
-        (*library).books[(*library).bookCount++]= newBook;  //add a new book to library//
+        (*library).books[(*library).bookCount++]= newBook;  /* add a new book to library */
 
         printf("\n\tBook Added Successfully!");
     }
@@ -483,3 +493,37 @@ void delete_last_book(struct Library *library)
     }
 }
 
+void any_book_delete(struct Library *library)
+{
+    char deleteBook[50];
+
+    printf("Please Enter the Book Name to Delete: ");
+
+    scanf(" %[^\n]s", &deleteBook);
+
+    int found = 0;
+
+    for(int i = 0; i < (*library).bookCount; i++)
+    {
+        if(strcmp((*library).books[i].Title, deleteBook) == 0)
+        {
+            for(int j = i; j < (*library).bookCount - 1; j++)
+            {
+                (*library).books[j] = (*library).books[j + 1];
+            }
+
+            ((*library).bookCount)--;
+
+            found = 1;
+
+            printf("Book Deleted Successfully!");
+
+            printf("\n\nTotal Available Books: %d", (*library).bookCount);
+        }
+    }
+
+    if(!found)
+    {
+        printf("Book %s was Not Not Found.\n", deleteBook);
+    }
+}

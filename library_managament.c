@@ -36,7 +36,7 @@ int authorization_screen();
 
 void show_menu();
 
-void enter_choice();
+void enter_choice(struct Library *library);
 
 void add_book(struct Library *library);
 
@@ -48,7 +48,7 @@ void search_books_by_author(struct Library *library);
 
 void delete_last_book(struct Library *library);
 
-void any_book_delete(struct Library *library);
+void delete_any_book(struct Library *library);
 
 
 int main()
@@ -338,7 +338,7 @@ void enter_choice(struct Library *library)
 
             show_welcome();
 
-            any_book_delete(&library);
+            delete_any_book(&library);
 
             break;
 
@@ -465,7 +465,7 @@ void search_books_by_name(struct Library *library)
     }
     printf("*\n\n");
 
-    printf("\n\t\t\t\t\t\t\t\t\t   Search Book By Title \n\n\n");
+    printf("\n\t\t\t\t\t\t\t\t\t Search Book By Title \n\n\n");
 
     printf("\t\t\t  ");
 
@@ -517,7 +517,7 @@ void search_books_by_name(struct Library *library)
     if(!found)
     {
 
-        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\tSorry! NO BOOK FOUND \t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
+        printf("\n\n\n\t\t\t  |*|*|*|*|*|*|*|*|*|*|*|*|\t\t\tSorry! NO BOOK FOUND\t\t\t|*|*|*|*|*|*|*|*|*|*|*|*|\n\n\n");
 
         printf("\t\t\t  ");
 
@@ -628,7 +628,7 @@ void delete_last_book(struct Library *library)
     }
 }
 
-void any_book_delete(struct Library *library)
+void delete_any_book(struct Library *library)
 {
     char deleteBook[50];
 
